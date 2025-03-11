@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varun Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav id="desktop-nav">
+        <div class="logo">Eswar Varun S</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hamburger Navigation -->
+    <nav id="hamburger-nav">
+        <div class="logo">Eswar Varun S</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <ul class="menu-links">
+            <li><a href="#about" onclick="toggleMenu()">About</a></li>
+            <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+            <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Profile Section -->
+    <section id="profile">
+        <div class="section__pic-container">
+            <img src="./assets/Untitled design (1).png" alt="Varun">
+        </div>
+        <div class="section__text">
+            <p class="section__text_p1">Hello, I'm</p>
+            <h1 class="title">Eswar Varun</h1>
+            <p class="section__text_p2">Software Engineer</p>
+            <div class="btn-container">
+                <button 
+                    class="btn btn-color-2" 
+                    onclick="window.open('./assets/varun_resume.pdf')"
+                >Download CV</button>
+                <button 
+                    class="btn btn-color-1" 
+                    onclick="location.href='./#contact'"
+                >Contact</button>
+            </div>
+            <div id="socials-container">
+                <img src="./assets/linkedin.png" alt="LinkedIn"
+                    class="icon" onclick="location.href='https://www.linkedin.com/in/eswar-varun-04b783267'" />
+                <img src="./assets/github.png" alt="GitHub"
+                    class="icon" onclick="location.href='https://github.com/eswar-varun'" />
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <p class="section__text_p1">Get to know More</p>
+        <h1 class="title">About Me</h1>
+        <br>
+        <div class="section-container">
+            <div class="section__pic-container">
+                <img src="./assets/Untitled design (2).png"
+                alt="Me"
+                class="about-pic"
+                />
+            </div>
+            <div class="about-details-containers">
+                <div class="about-containers">
+                    <div class="details-container">
+                        <img src="./assets/experience.png" alt="experienceicon"
+                        class="icon"/>
+                    <h3>Experience</h3>
+                    <p>Fresher<br>Software Development</p>
+                    </div>
+                    <div class="details-container">
+                        <img src="./assets/education.png" alt="experienceicon"
+                        class="icon"/>
+                    <h3>Education</h3>
+                    <p>B.Tech in Electronics and Computer Engineering</p>
+                    <h3>Vellore Institute of Technology Chennai</h3>
+                    <p>CGPA 8.51</p>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <br>
+                    <p>I’m a passionate developer with a strong background in AI/ML, web development, and backend engineering. I love solving complex problems with technology. I aim to create innovative and efficient solutions. Currently, I’m focused on expanding my web development skills while working on real-world projects.</p>
+            </div>
+            </div>
+        </div>
+        <img src="./assets/arrow.png" class="icon arrow"
+        onclick="location.href='./#experience'"/>
+    </section>
+    <section id="experience">
+        <p class="section__text_p1">Explore My</p>
+        <h1 class="title"> Experience</h1>
+        <br>
+        <div class="experience-details-container">
+            <div class="about-details-containers">
+                <div class="about-containers">
+                    <div class="details-container">
+                        <img src="./assets/CTA-8.png" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>Outlier.ai</h3>
+                    <p>Freelance Software Engineer<br>Dec 2024-Present</p>
+                    </div>
+                    <div class="details-container">
+                        <img src="./assets/smartinternz_thumb.png" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>SmartInternz</h3>
+                    <p>Generative AI Intern<br> Jun 2024-Jul 2024</p>
+                    </div>
+                    <div class="details-container">
+                        <img src="./assets/qantler.jpeg" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>Qantler Technologies</h3>
+                    <p>Web Developement Intern<br>Aug 2023-Sep 2023</p>
+                    </div>
+                </div>
+    
+        <img src="./assets/arrow.png" class="icon arrow"
+        onclick="location.href='./#projects'"/>
+    </section>
+    <section id="projects">
+        <p class="section__text_p1">Explore My</p>
+        <h1 class="title"> Projects</h1>
+        <br>
+        <div class="experience-details-container">
+            <div class="about-details-containers">
+                <div class="about-containers">
+                    <div class="details-container">
+                        <img src="assets/sign language.jpeg" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>Sign Language Detection and Translation</h3><br>
+                    <div><button 
+                    class="btn btn-color-2" 
+                    onclick="href='https://github.com/eswar-varun'"
+                >GitHub</button></div>
+                    </div>
+                    <div class="details-container">
+                        <img src="./assets/parkinsons.jpeg" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>Parkinson's Disease Prediction</h3><br>
+                    <button 
+                    class="btn btn-color-2" 
+                    onclick="href='https://github.com/eswar-varun/parkinsons-using-xgboost'">GitHub</button>
+                    </div>
+                    <div class="details-container">
+                        <img src="./assets/codexchange.jpeg" alt="experienceicon"
+                        class="cmpny"/>
+                    <h3>CodeXchange</h3><br><br>
+                    <div><button 
+                    class="btn btn-color-2" 
+                    onclick="href='https://github.com/eswar-varun/CodeXchange'">GitHub</button></div>
+                    </div>
+                </div>
+                <img src="./assets/arrow.png" class="icon arrow" onclick="location.href='./#contact'"/>
+    </section>
+    <section id="contact">
+        <p class="section__text_p1">Get in Touch</p>
+        <h1 class="title">Contact Me</h1>
+        <div class="contact-info-upper-container">
+            <div class="contact-info-container">
+                <img src="./assets/email.png" class="icon contact-icon"/>
+                <p><a href="mailto:examplemail@gmail.com">s.eswarvarun@gmail.com</a></p>
+            </div>
+            <div class="contact-info-container">
+                <img src="./assets/linkedin.png" class="icon contact-icon"/>
+                <p><a href="https://www.linkedin.com/in/eswar-varun-04b783267">LinkedIn</a></p>
+            </div>
+            <div class="contact-info-container">
+                <img src="./assets/insta.jpg" class="icon contact-icon"/>
+                <p><a href="https://www.instagram.com/eswar._.varun/">Instagram</a></p>
+            </div>
+        </div>
+    </section>    
+    <p class="section__text_p1">Eswar Varun's Portfolio!<br><br></p>
+    <script src="script.js"></script>
+</body>
+</html>
