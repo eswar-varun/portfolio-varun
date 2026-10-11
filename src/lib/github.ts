@@ -188,29 +188,3 @@ export function describeEvent(e: GhEvent, owner: string): string | null {
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
-
-// GitHub's linguist colours for common languages.
-const LANG_COLORS: Record<string, string> = {
-  Python: '#3572A5',
-  'Jupyter Notebook': '#DA5B0B',
-  JavaScript: '#f1e05a',
-  TypeScript: '#3178c6',
-  Java: '#b07219',
-  'C#': '#178600',
-  C: '#555555',
-  'C++': '#f34b7d',
-  Go: '#00ADD8',
-  Rust: '#dea584',
-  HTML: '#e34c26',
-  CSS: '#663399',
-  Shell: '#89e051',
-  Dockerfile: '#384d54',
-  Kotlin: '#A97BFF',
-};
-
-export function languageColor(name: string): string {
-  if (LANG_COLORS[name]) return LANG_COLORS[name];
-  let h = 0;
-  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) % 360;
-  return `hsl(${h} 55% 55%)`;
-}

@@ -1,5 +1,5 @@
 // All site content lives here. Edit this file to update the portfolio;
-// both designs only read from it.
+// the editor UI only reads from it.
 
 export const profile = {
   name: 'Eswar Varun S',

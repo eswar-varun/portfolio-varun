@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, type ReactNode } from 'react';
-import { profile } from '../../data/profile';
-import { copyEmail } from '../../lib/browser';
+import { profile } from '../data/profile';
+import { copyEmail } from '../lib/browser';
 import { FILES } from './files';
 
 type Entry = { id: number; cmd?: string; out: ReactNode };

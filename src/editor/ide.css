@@ -1,5 +1,4 @@
-/* IDE design. Only loaded when this design is active, so the globals here
-   don't leak into the other one. */
+/* Editor-style layout: title bar, explorer, tabs, terminal, status bar. */
 
 html,
 body {

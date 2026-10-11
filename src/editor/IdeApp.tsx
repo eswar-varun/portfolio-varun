@@ -1,13 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { profile } from '../../data/profile';
-import { loadStylesheet } from '../../lib/browser';
-import { GitHub, LinkedIn } from '../../components/Icons';
+import { profile } from '../data/profile';
+import { GitHub, LinkedIn } from '../components/Icons';
 import { FILES, FILE_BY_PATH, fileBadge, type FileDef } from './files';
 import { OpenFileContext } from './syntax';
 import { Terminal, type TerminalHandle } from './Terminal';
 import './ide.css';
-
-loadStylesheet('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 
 const DEFAULT_FILE = 'README.md';
 const MOBILE = '(max-width: 820px)';

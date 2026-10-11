@@ -1,7 +1,7 @@
 import { Fragment, useState, type ReactNode } from 'react';
-import { education, experience, otherProjects, profile, projects, skills, type Project } from '../../data/profile';
-import { copyEmail } from '../../lib/browser';
-import { describeEvent, isWithinDays, timeAgo, useGitHub } from '../../lib/github';
+import { education, experience, otherProjects, profile, projects, skills, type Project } from '../data/profile';
+import { copyEmail } from '../lib/browser';
+import { describeEvent, isWithinDays, timeAgo, useGitHub } from '../lib/github';
 import {
   Blank,
   Bold,
