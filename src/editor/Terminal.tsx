@@ -13,7 +13,9 @@ type Props = { onOpenFile: (path: string) => void; onClose: () => void };
 const PROMPT = `${profile.githubUser}@portfolio`;
 
 const HELP: [string, string][] = [
-  ['ls', 'list files'],
+  ['<file name>', 'open a file, e.g. skills, experience, contact'],
+  ['projects', 'list my projects'],
+  ['ls [dir]', 'list files'],
   ['open <file>', 'open a file in the editor (Tab completes)'],
   ['whoami', 'who I am, in one line'],
   ['resume', 'open my resume (PDF)'],
@@ -26,6 +28,85 @@ const HELP: [string, string][] = [
 ];
 
 let nextId = 0;
+
+// Words people type that mean a file without naming it.
+const ALIASES: Record<string, string> = {
+  about: 'README.md',
+  me: 'README.md',
+  home: 'README.md',
+  readme: 'README.md',
+  work: 'experience.ts',
+  jobs: 'experience.ts',
+  education: 'experience.ts',
+  stack: 'skills.json',
+  activity: 'github.log',
+  hire: 'contact.sh',
+  'hire me': 'contact.sh',
+};
+
+const PROJECT_FILES = FILES.filter((f) => f.folder === 'projects');
+
+/** Forgiving lookup: exact path or name, name without extension, alias, then a unique prefix or substring. */
+function resolveFile(input: string) {
+  const q = input
+    .trim()
+    .toLowerCase()
+    .replace(/^(\.\/|~\/)/, '')
+    .replace(/\/$/, '');
+  if (!q) return undefined;
+  const base = (name: string) => name.toLowerCase().replace(/\.[^.]+$/, '');
+  const exact = FILES.find((f) => f.path.toLowerCase() === q || f.name.toLowerCase() === q || base(f.name) === q);
+  if (exact) return exact;
+  if (ALIASES[q]) return FILES.find((f) => f.path === ALIASES[q]);
+  const prefix = FILES.filter((f) => f.name.toLowerCase().startsWith(q) || f.path.toLowerCase().startsWith(q));
+  if (prefix.length === 1) return prefix[0];
+  const inside = FILES.filter((f) => f.path.toLowerCase().includes(q));
+  return inside.length === 1 ? inside[0] : undefined;
+}
+
+/** Closest command or file name, for "did you mean". */
+function suggest(input: string): string | undefined {
+  const words = [
+    ...HELP.map(([c]) => c.split(' ')[0]).filter((c) => !c.startsWith('<')),
+    ...FILES.map((f) => f.name.replace(/\.[^.]+$/, '')),
+  ];
+  let best: string | undefined;
+  let bestScore = Infinity;
+  for (const w of words) {
+    const d = distance(input.toLowerCase(), w.toLowerCase());
+    if (d < bestScore) {
+      bestScore = d;
+      best = w;
+    }
+  }
+  return bestScore <= Math.max(2, Math.floor(input.length / 3)) ? best : undefined;
+}
+
+function distance(a: string, b: string): number {
+  const dp = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = dp[0];
+    dp[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = dp[j];
+      dp[j] = Math.min(dp[j] + 1, dp[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = tmp;
+    }
+  }
+  return dp[b.length];
+}
+
+function FileList({ files, onOpen }: { files: typeof FILES; onOpen: (path: string) => void }) {
+  return (
+    <div className="term-ls">
+      {files.map((f) => (
+        <button key={f.path} type="button" className="term-file" onClick={() => onOpen(f.path)}>
+          {f.path}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function Whoami() {
   return (
@@ -87,26 +168,44 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
         );
         break;
       case 'ls':
-        print(
-          cmd,
-          <div className="term-ls">
-            {FILES.map((f) => (
-              <button key={f.path} type="button" className="term-file" onClick={() => onOpenFile(f.path)}>
-                {f.path}
-              </button>
-            ))}
-          </div>,
-        );
+      case 'dir':
+      case 'll': {
+        const dir = args.filter((a) => !a.startsWith('-')).join(' ').replace(/\/$/, '');
+        print(cmd, <FileList files={dir === 'projects' ? PROJECT_FILES : FILES} onOpen={onOpenFile} />);
+        break;
+      }
+      case 'cd':
+        if (arg.replace(/\/$/, '') === 'projects') {
+          print(cmd, <FileList files={PROJECT_FILES} onOpen={onOpenFile} />);
+        } else {
+          print(cmd, arg && arg !== '~' && arg !== '..' ? <span className="t-kw">no such directory: {arg}. Try ls.</span> : null);
+        }
+        break;
+      case 'projects':
+        print(cmd, <FileList files={PROJECT_FILES} onOpen={onOpenFile} />);
+        break;
+      case 'pwd':
+        print(cmd, <span>/home/{profile.githubUser}/portfolio</span>);
+        break;
+      case 'echo':
+        print(cmd, <span>{arg}</span>);
         break;
       case 'open':
       case 'cat':
-      case 'code': {
-        const match = FILES.find((f) => f.path === arg || f.name === arg) ?? FILES.find((f) => f.path.startsWith(arg) && arg);
+      case 'code':
+      case 'less':
+      case 'more':
+      case 'vim':
+      case 'vi':
+      case 'nano':
+      case 'bash':
+      case 'sh': {
+        const match = resolveFile(arg);
         if (match) {
           onOpenFile(match.path);
           print(cmd, <span className="t-dim">opened {match.path}</span>);
         } else {
-          print(cmd, <span className="t-kw">{arg ? `no such file: ${arg}` : 'usage: open <file>'}. Try ls.</span>);
+          print(cmd, <span className="t-kw">{arg ? `no such file: ${arg}` : `usage: ${name} <file>`}. Try ls.</span>);
         }
         break;
       }
@@ -154,8 +253,31 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
       case 'sudo':
         print(cmd, <span className="t-kw">nice try. Hire me first.</span>);
         break;
-      default:
-        print(cmd, <span className="t-kw">command not found: {name}. Try help.</span>);
+      default: {
+        // Typing a file name (or ./contact.sh) just opens it.
+        const match = resolveFile(cmd);
+        if (match) {
+          onOpenFile(match.path);
+          print(cmd, <span className="t-dim">opened {match.path}</span>);
+          break;
+        }
+        const guess = suggest(name);
+        print(
+          cmd,
+          <span>
+            <span className="t-kw">command not found: {name}.</span>{' '}
+            {guess ? (
+              <span className="t-dim">
+                Did you mean <b className="t-fn">{guess}</b>?
+              </span>
+            ) : (
+              <span className="t-dim">
+                Try <b className="t-fn">help</b>, or type a file name like <b className="t-fn">skills</b>.
+              </span>
+            )}
+          </span>,
+        );
+      }
     }
   };
 
@@ -187,8 +309,10 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
         if (hits.length === 1) setValue(`${m[1]} ${hits[0].path}`);
         else if (hits.length > 1) print(value, <span className="t-dim">{hits.map((h) => h.path).join('   ')}</span>);
       } else {
-        const cmds = HELP.map(([c]) => c.split(' ')[0]).filter((c) => c.startsWith(value));
-        if (cmds.length === 1) setValue(cmds[0] + (cmds[0] === 'open' || cmds[0] === 'theme' ? ' ' : ''));
+        const cmds = HELP.map(([c]) => c.split(' ')[0]).filter((c) => !c.startsWith('<') && c.startsWith(value));
+        const files = value ? FILES.filter((f) => f.name.toLowerCase().startsWith(value.toLowerCase())) : [];
+        if (cmds.length === 1 && files.length === 0) setValue(cmds[0] + (cmds[0] === 'open' || cmds[0] === 'theme' ? ' ' : ''));
+        else if (files.length === 1 && cmds.length === 0) setValue(files[0].name);
       }
     } else if (e.key === 'l' && e.ctrlKey) {
       e.preventDefault();

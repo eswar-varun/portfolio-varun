@@ -705,6 +705,10 @@ body {
   align-items: baseline;
 }
 
+.term-input-row input:focus-visible {
+  outline: none;
+}
+
 .term-input-row input {
   flex: 1;
   min-width: 0;
