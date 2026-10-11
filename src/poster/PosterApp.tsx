@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { education, experience, otherProjects, profile, projects, skills, type Project } from '../data/profile';
 import { copyEmail, loadStylesheet } from '../lib/browser';
 import { isWithinDays, languageColor, timeAgo, useGitHub } from '../lib/github';
@@ -10,6 +10,7 @@ loadStylesheet('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..1
 const [first, last] = profile.shortName.toUpperCase().split(' ');
 
 export default function PosterApp() {
+  useScrollToHashOnLoad();
   return (
     <div className="poster" id="top">
       <TopBar />
@@ -25,10 +26,46 @@ export default function PosterApp() {
   );
 }
 
+// The page renders after the browser's own jump to #section, so do it
+// here, and again once the GitHub data (which sits above Contact) arrives,
+// unless the visitor has started scrolling by then.
+function useScrollToHashOnLoad() {
+  const gh = useGitHub(profile.githubUser);
+  const touched = useRef(false);
+
+  useEffect(() => {
+    const stop = () => (touched.current = true);
+    window.addEventListener('wheel', stop, { passive: true, once: true });
+    window.addEventListener('touchmove', stop, { passive: true, once: true });
+    window.addEventListener('keydown', stop, { once: true });
+    return () => {
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchmove', stop);
+      window.removeEventListener('keydown', stop);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (touched.current) return;
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
+  }, [gh.status]);
+}
+
 function TopBar() {
   return (
     <header className="p-top">
-      <a href="#top" className="p-top-name">
+      <a
+        href="/"
+        className="p-top-name"
+        title="Home"
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+          window.scrollTo({ top: 0 });
+        }}
+      >
         {profile.name}
       </a>
       <nav className="p-top-nav" aria-label="Sections">

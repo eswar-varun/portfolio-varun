@@ -141,6 +141,10 @@ body {
   font-weight: 800;
 }
 
+.p-top-name:hover {
+  color: var(--hot);
+}
+
 .p-top > * {
   white-space: nowrap;
 }

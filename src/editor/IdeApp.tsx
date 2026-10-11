@@ -43,15 +43,24 @@ export default function IdeApp() {
     if (active === path) setActive(next[Math.min(i, next.length - 1)] ?? null);
   };
 
-  // Keep the URL in sync so a file can be linked directly.
+  // Keep the URL in sync so a file can be linked directly. README is the
+  // home page, so it gets the plain URL.
   useEffect(() => {
-    const target = active ?? '';
+    const target = active && active !== DEFAULT_FILE ? active : '';
     if (decodeURIComponent(window.location.hash.slice(1)) !== target) {
       history.replaceState(null, '', target ? `#${target}` : window.location.pathname + window.location.search);
     }
     editorRef.current?.scrollTo({ top: 0 });
-    document.title = active ? `${FILE_BY_PATH.get(active)!.name} · ${profile.name}` : `${profile.name}, Software Engineer`;
+    document.title = active && active !== DEFAULT_FILE ? `${FILE_BY_PATH.get(active)!.name} · ${profile.name}` : `${profile.name}, Software Engineer`;
   }, [active]);
+
+  /** Back to the start: README open and scrolled to the top. */
+  const goHome = () => {
+    setTabs((t) => (t.includes(DEFAULT_FILE) ? t : [DEFAULT_FILE, ...t]));
+    setActive(DEFAULT_FILE);
+    editorRef.current?.scrollTo({ top: 0 });
+    if (window.matchMedia(MOBILE).matches) setSidebarOpen(false);
+  };
 
   useEffect(() => {
     const onHash = () => {
@@ -108,7 +117,18 @@ export default function IdeApp() {
             </svg>
           </button>
           <div className="tb-title">
-            <b>{profile.name}</b>
+            <a
+              href="/"
+              className="tb-home"
+              title="Home"
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                e.preventDefault();
+                goHome();
+              }}
+            >
+              <b>{profile.name}</b>
+            </a>
             <span className="t-dim"> · software engineer</span>
           </div>
           <nav className="tb-actions" aria-label="Quick links">

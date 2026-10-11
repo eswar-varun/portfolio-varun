@@ -136,6 +136,10 @@ body {
   font-weight: 500;
 }
 
+.tb-home:hover b {
+  color: var(--accent);
+}
+
 .tb-actions {
   display: flex;
   align-items: center;
