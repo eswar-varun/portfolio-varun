@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, type ReactNode } from 'react';
 import { profile } from '../data/profile';
+import { openExternal } from '../lib/appLinks';
 import { copyEmail } from '../lib/browser';
 import { THEMES, switchTheme, type ThemeId } from '../themes';
 import { FILES } from './files';
@@ -223,7 +224,7 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
         break;
       case 'github':
       case 'linkedin':
-        window.open(profile.links[name], '_blank', 'noopener');
+        openExternal(profile.links[name]);
         print(cmd, <span className="t-dim">opening {name}…</span>);
         break;
       case 'theme': {
