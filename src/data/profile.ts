@@ -1,11 +1,12 @@
-// All site content lives here. Edit this file to update the portfolio —
-// components only read from it.
+// All site content lives here. Edit this file to update the portfolio;
+// both designs only read from it.
 
 export const profile = {
   name: 'Eswar Varun S',
   shortName: 'Eswar Varun',
-  initials: 'EV',
+  handle: 'eswar-varun',
   role: 'Software Engineer',
+  company: 'Accenture',
   location: 'Chennai, India',
   status: 'Open to SDE roles',
   email: 's.eswarvarun@gmail.com',
@@ -17,89 +18,87 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/eswar-varun-s',
     resume: '/resume.pdf',
   },
-  // Set this after you push the site's own code, e.g.
-  // 'https://github.com/eswar-varun/portfolio'. The footer links to it.
+  // Set after pushing this site's code, e.g. 'https://github.com/eswar-varun/portfolio'.
   sourceRepo: null as string | null,
 
-  headline: 'I build backend services and AI tooling that take manual work off engineering teams.',
+  headline: 'I build backend services and AI tools that take manual work off engineering teams.',
   intro:
-    "Software engineer at Accenture, building Python and FastAPI services on Azure that automate cloud migrations and surface cross-team delivery risk. Previously reviewed LLM-generated code for Scale AI's model training. I like systems that are tested, observable, and boring to operate.",
+    'Software engineer at Accenture. I build Python and FastAPI services on Azure: one automates cloud migrations, another tracks dependencies across 100+ work items in a large Agile program. Before Accenture I reviewed LLM-generated code for Scale AI.',
 };
 
-export const highlights = [
-  { value: '~80%', label: 'less manual effort in cloud-migration workflows' },
-  { value: '100+', label: 'concurrent work items tracked for dependency risk' },
-  { value: '1,000+', label: 'documentation pages indexed for retrieval' },
-  { value: '<200 ms', label: 'latency for real-time sign-language recognition' },
-];
-
 export type Project = {
+  slug: string; // used for file names and anchors
   title: string;
-  kind: string; // e.g. "Accenture · internal" or "Personal"
+  kind: string; // e.g. "Accenture, internal" or "Personal"
+  year: string;
   summary: string;
-  flow: string[]; // pipeline stages, rendered as a diagram
+  flow: string[]; // pipeline stages
   points: string[];
   metrics: string[];
   stack: string[];
-  repo?: string; // GitHub repo name under githubUser — enables live stats
+  repo?: string; // repo name under githubUser, enables a code link
   demo?: string;
-  privateNote?: string;
+  private?: boolean;
 };
 
 export const projects: Project[] = [
   {
+    slug: 'dependency-tracker',
     title: 'Dependency Tracker',
-    kind: 'Accenture · internal',
+    kind: 'Accenture, internal',
+    year: '2025',
     summary:
-      'Finds cross-team dependencies hidden in Azure DevOps and flags deliverables that are about to slip — before the standup where it becomes a problem.',
+      'Finds cross-team dependencies in Azure DevOps and flags deliverables that are about to slip, so they get raised before the standup instead of during it.',
     flow: ['Azure DevOps API', 'WIQL ingest', 'Dependency graph', 'Risk scoring', 'Escalation router'],
     points: [
-      'Queries work items with WIQL and walks link relations to build a dependency graph across teams.',
-      'Scores each deliverable for risk and routes escalations to the right forum: team standup, ART sync, or FED.',
+      'Queries work items with WIQL and follows link relations to build a dependency graph across teams.',
+      'Scores each deliverable for risk and sends escalations to the right forum: team standup, ART sync or FED.',
       'Change detection with content hashes and timestamps, so each run only reprocesses what changed.',
     ],
     metrics: ['100+ concurrent work items', 'Used across a scaled Agile program'],
     stack: ['Python', 'FastAPI', 'Azure DevOps REST', 'LangChain', 'RAG', 'Graph API'],
-    privateNote: 'Internal project, so the code is private.',
+    private: true,
   },
   {
+    slug: 'cloud-migration',
     title: 'Cloud Migration Automation',
-    kind: 'Accenture · internal',
+    kind: 'Accenture, internal',
+    year: '2025',
     summary:
-      'Automates the slow, manual parts of moving applications from AWS and GCP to Azure: finding every SDK call and working out what replaces it.',
-    flow: ['Repo scan', 'SDK dependency map', 'Doc retrieval (RAG)', 'Azure equivalents', 'Validation'],
+      'Automates the slow part of moving apps from AWS and GCP to Azure: finding every SDK call in a codebase and working out what replaces it.',
+    flow: ['Repo scan', 'SDK dependency map', 'Doc retrieval', 'Azure equivalents', 'Validation'],
     points: [
-      'Static scanner maps 100+ AWS/GCP SDK dependencies in a repository to their Azure equivalents.',
-      'Retrieval over 1,000+ pages of cloud documentation grounds each suggested replacement.',
-      'Shipped with automated tests, CI/CD on Azure DevOps, structured logging, and alerting.',
+      'Static scanner maps 100+ AWS and GCP SDK dependencies in a repo to their Azure equivalents.',
+      'Retrieval over 1,000+ pages of cloud docs backs up each suggested replacement.',
+      'Shipped with automated tests, CI/CD on Azure DevOps, structured logging and alerting.',
     ],
-    metrics: ['~80% less manual effort', '100+ SDK dependencies mapped', '1,000+ doc pages indexed'],
+    metrics: ['80% less manual effort', '100+ SDK dependencies mapped', '1,000+ doc pages indexed'],
     stack: ['Python', 'FastAPI', 'LangChain', 'RAG', 'Azure', 'AWS', 'GCP'],
-    privateNote: 'Internal project, so the code is private.',
+    private: true,
   },
   {
-    title: 'Real-Time Sign Language Translator',
+    slug: 'sign-language',
+    title: 'Sign Language Translator',
     kind: 'Personal',
-    summary:
-      'Translates ASL and ISL gestures from a webcam into text in real time, then into other spoken languages.',
+    year: '2024',
+    summary: 'Reads ASL and ISL gestures from a webcam, turns them into text in real time, and translates the text into other languages.',
     flow: ['Webcam', 'MediaPipe landmarks', 'BiLSTM classifier', 'Text', 'Translate API'],
     points: [
-      'Extracts hand landmarks with MediaPipe and OpenCV instead of raw pixels, which keeps the model small and fast.',
+      'Uses MediaPipe hand landmarks instead of raw pixels, which keeps the model small and fast.',
       'BiLSTM sequence classifier trained on 5,000+ gesture samples.',
     ],
-    metrics: ['92% test accuracy', '<200 ms per prediction', '5,000+ training samples'],
+    metrics: ['92% test accuracy', '<200ms per prediction', '5,000+ training samples'],
     stack: ['Python', 'TensorFlow', 'OpenCV', 'MediaPipe'],
     // TODO: push this project to GitHub and set repo: '<repo-name>'.
   },
   {
+    slug: 'codexchange',
     title: 'CodeXchange',
     kind: 'Personal',
-    summary: 'LLM-powered code translator that converts programs between 10+ languages.',
+    year: '2024',
+    summary: 'Translates code between 10+ programming languages using an LLM on Vertex AI.',
     flow: ['Source code', 'Prompt templates', 'Vertex AI', 'Translated code'],
-    points: [
-      'Prompt engineering on Vertex AI cut translation errors by ~30%.',
-      'Shipped as a Streamlit web app.',
-    ],
+    points: ['Prompt engineering on Vertex AI cut translation errors by about 30%.', 'Shipped as a Streamlit web app.'],
     metrics: ['10+ languages', '~30% fewer translation errors'],
     stack: ['Python', 'Vertex AI', 'Streamlit'],
     repo: 'CodeXchange',
@@ -108,8 +107,9 @@ export const projects: Project[] = [
 
 export const otherProjects = [
   {
-    title: "Parkinson's Disease Prediction",
-    summary: 'XGBoost model on 20+ vocal biomarkers; 94% accuracy, ROC-AUC validated.',
+    slug: 'parkinsons',
+    title: "Parkinson's Prediction",
+    summary: 'XGBoost model on 20+ vocal biomarkers, 94% accuracy, ROC-AUC validated.',
     stack: ['Python', 'XGBoost', 'scikit-learn'],
     repo: 'parkinsons-using-xgboost',
   },
@@ -119,23 +119,23 @@ export const experience = [
   {
     role: 'Advanced Application Engineering Analyst',
     company: 'Accenture',
-    period: 'Oct 2025 — Present',
+    period: 'Oct 2025 – Present',
     location: 'Chennai, India',
     points: [
-      'Built a dependency-tracking service over Azure DevOps REST APIs (WIQL, link-relation traversal) that maps cross-team dependencies across 100+ concurrent work items, scores at-risk deliverables, and routes escalations.',
-      'Automated a multi-stage cloud-migration workflow: a static scanner maps 100+ AWS/GCP SDK dependencies to Azure equivalents, backed by retrieval over 1,000+ documentation pages, cutting manual effort by ~80%.',
-      'Shipped every service with automated tests, CI/CD on Azure DevOps, structured logging, telemetry, and alerting.',
+      'Built a dependency-tracking service on Azure DevOps REST APIs (WIQL, link-relation traversal) that maps cross-team dependencies across 100+ concurrent work items, scores at-risk deliverables and routes escalations.',
+      'Automated a multi-stage cloud migration workflow: a static scanner maps 100+ AWS/GCP SDK dependencies to Azure equivalents, backed by retrieval over 1,000+ doc pages. Cut manual effort by about 80%.',
+      'Every service ships with automated tests, CI/CD on Azure DevOps, structured logging, telemetry and alerting.',
     ],
     stack: ['Python', 'FastAPI', 'Flask', 'Azure', 'Azure DevOps', 'LangChain'],
   },
   {
     role: 'AI Code Reviewer (Contract)',
     company: 'Outlier (Scale AI)',
-    period: 'Dec 2024 — Jun 2025',
+    period: 'Dec 2024 – Jun 2025',
     location: 'Remote',
     points: [
-      'Reviewed LLM-generated solutions to algorithmic and software-engineering problems for correctness, time and space complexity, and edge cases.',
-      'Wrote reference solutions and grading feedback used in SFT and RLHF training pipelines.',
+      'Reviewed LLM-generated solutions to algorithm and software-engineering problems for correctness, time and space complexity, and edge cases.',
+      'Wrote reference solutions and grading feedback used in SFT and RLHF training.',
     ],
     stack: ['Python', 'Java'],
   },
@@ -144,7 +144,7 @@ export const experience = [
 export const education = {
   school: 'Vellore Institute of Technology, Chennai',
   degree: 'B.Tech, Electronics and Computer Engineering',
-  period: '2021 — 2025',
+  period: '2021 – 2025',
   detail: 'CGPA 8.53 / 10',
   certs: ['AWS Certified Cloud Practitioner (2024)'],
 };
