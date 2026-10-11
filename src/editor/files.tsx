@@ -71,6 +71,11 @@ const readme: FileDef = {
       <Bullet>
         <MdLink href={`mailto:${profile.email}`}>{profile.email}</MdLink>
       </Bullet>
+      {profile.sourceRepo && (
+        <Bullet>
+          <MdLink href={profile.sourceRepo}>source of this site</MdLink>
+        </Bullet>
+      )}
       <Blank />
       <Line>
         <Com>{'<!-- Open a file on the left, or type `help` in the terminal. -->'}</Com>

@@ -12,14 +12,14 @@ export const profile = {
   email: 's.eswarvarun@gmail.com',
   githubUser: 'eswar-varun',
   // Repos left out of the live GitHub section and language stats.
-  hiddenRepos: ['portfolio-varun'],
+  hiddenRepos: [] as string[],
   links: {
     github: 'https://github.com/eswar-varun',
     linkedin: 'https://www.linkedin.com/in/eswar-varun-s',
     resume: '/resume.pdf',
   },
-  // Set after pushing this site's code, e.g. 'https://github.com/eswar-varun/portfolio'.
-  sourceRepo: null as string | null,
+  // This site's own code.
+  sourceRepo: 'https://github.com/eswar-varun/portfolio-varun' as string | null,
 
   headline: 'I build backend services and AI tools that take manual work off engineering teams.',
   intro:
