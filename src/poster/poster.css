@@ -29,8 +29,16 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 56px;
+}
+
+/* Smooth anchor scrolling only with a mouse. On phones it turns the
+   browser's own scroll corrections (address bar showing/hiding) into
+   visible glides. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -694,8 +702,10 @@ body {
   transition: color 0.15s;
 }
 
-.p-email:hover {
-  color: var(--hot);
+@media (hover: hover) {
+  .p-email:hover {
+    color: var(--hot);
+  }
 }
 
 .p-contact-row {

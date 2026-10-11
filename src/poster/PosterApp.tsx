@@ -91,15 +91,26 @@ function FittedName() {
     const h1 = ref.current;
     if (!h1) return;
     const inner = h1.firstElementChild as HTMLElement;
-    const fit = () => {
-      h1.style.fontSize = '100px';
+    let lastWidth = -1;
+    // Text width scales linearly with font size, so scale from the current
+    // size in one step. Never shrink-then-grow: on phones that briefly
+    // shortens the page and the browser shifts the scroll position.
+    const fit = (force = false) => {
+      const width = h1.clientWidth;
+      // Mobile address bars resize the viewport height only; ignore those.
+      if (!force && width === lastWidth) return;
+      lastWidth = width;
+      const current = parseFloat(getComputedStyle(h1).fontSize);
       const w = inner.getBoundingClientRect().width;
-      if (w > 0) h1.style.fontSize = `${Math.floor((100 * h1.clientWidth) / w)}px`;
+      if (!w || !current) return;
+      const next = Math.floor((current * width) / w);
+      if (next !== Math.floor(current)) h1.style.fontSize = `${next}px`;
     };
-    fit();
-    document.fonts?.ready.then(fit);
-    window.addEventListener('resize', fit);
-    return () => window.removeEventListener('resize', fit);
+    const onResize = () => fit();
+    fit(true);
+    document.fonts?.ready.then(() => fit(true));
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   return (
