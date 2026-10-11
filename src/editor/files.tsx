@@ -80,6 +80,9 @@ const readme: FileDef = {
       <Line>
         <Com>{'<!-- Open a file on the left, or type `help` in the terminal. -->'}</Com>
       </Line>
+      <Line>
+        <Com>{'<!-- Not into editors? Type `theme poster`, or use the theme menu in the status bar. -->'}</Com>
+      </Line>
     </Code>
   ),
 };

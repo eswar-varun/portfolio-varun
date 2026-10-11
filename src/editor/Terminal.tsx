@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, type ReactNode } from 'react';
 import { profile } from '../data/profile';
 import { copyEmail } from '../lib/browser';
+import { THEMES, switchTheme, type ThemeId } from '../themes';
 import { FILES } from './files';
 
 type Entry = { id: number; cmd?: string; out: ReactNode };
@@ -19,6 +20,7 @@ const HELP: [string, string][] = [
   ['email', 'copy my email address'],
   ['github', 'open my GitHub'],
   ['linkedin', 'open my LinkedIn'],
+  ['theme [name]', `switch theme (${THEMES.map((t) => t.id).join(', ')})`],
   ['clear', 'clear the terminal'],
   ['exit', 'close this panel'],
 ];
@@ -125,6 +127,24 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
         window.open(profile.links[name], '_blank', 'noopener');
         print(cmd, <span className="t-dim">opening {name}…</span>);
         break;
+      case 'theme': {
+        const target = THEMES.find((t) => t.id === arg);
+        if (target && target.id !== 'ide') {
+          print(cmd, <span className="t-dim">switching to {target.label.toLowerCase()} theme…</span>);
+          setTimeout(() => switchTheme(target.id as ThemeId), 250);
+        } else if (target) {
+          print(cmd, <span className="t-dim">already using the editor theme.</span>);
+        } else {
+          print(
+            cmd,
+            <span>
+              themes: {THEMES.map((t) => (t.id === 'ide' ? `${t.id} (current)` : t.id)).join(', ')}.{' '}
+              <span className="t-dim">Try theme poster.</span>
+            </span>,
+          );
+        }
+        break;
+      }
       case 'clear':
         setEntries([]);
         break;
@@ -157,14 +177,18 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
       setValue(i >= 0 ? history.current[i] : '');
     } else if (e.key === 'Tab') {
       e.preventDefault();
+      const tm = value.match(/^theme\s+(.*)$/);
       const m = value.match(/^(open|cat|code)\s+(.*)$/);
-      if (m) {
+      if (tm) {
+        const hit = THEMES.filter((th) => th.id.startsWith(tm[1]));
+        if (hit.length === 1) setValue(`theme ${hit[0].id}`);
+      } else if (m) {
         const hits = FILES.filter((f) => f.path.startsWith(m[2]) || f.name.startsWith(m[2]));
         if (hits.length === 1) setValue(`${m[1]} ${hits[0].path}`);
         else if (hits.length > 1) print(value, <span className="t-dim">{hits.map((h) => h.path).join('   ')}</span>);
       } else {
         const cmds = HELP.map(([c]) => c.split(' ')[0]).filter((c) => c.startsWith(value));
-        if (cmds.length === 1) setValue(cmds[0] + (cmds[0] === 'open' ? ' ' : ''));
+        if (cmds.length === 1) setValue(cmds[0] + (cmds[0] === 'open' || cmds[0] === 'theme' ? ' ' : ''));
       }
     } else if (e.key === 'l' && e.ctrlKey) {
       e.preventDefault();

@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { profile } from '../data/profile';
 import { GitHub, LinkedIn } from '../components/Icons';
+import { loadStylesheet } from '../lib/browser';
+import { THEMES, switchTheme } from '../themes';
 import { FILES, FILE_BY_PATH, fileBadge, type FileDef } from './files';
 import { OpenFileContext } from './syntax';
 import { Terminal, type TerminalHandle } from './Terminal';
 import './ide.css';
+
+loadStylesheet('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 
 const DEFAULT_FILE = 'README.md';
 const MOBILE = '(max-width: 820px)';
@@ -260,18 +264,67 @@ export default function IdeApp() {
 
         {/* Status bar */}
         <footer className="statusbar">
-          <span className="sb-item">⎇ main</span>
+          <span className="sb-item sb-hide-sm">⎇ main</span>
           <span className="sb-item sb-status">● {profile.status}</span>
           <span className="sb-spacer" />
           <span className="sb-item sb-hide-sm">{profile.location}</span>
           {activeFile && <span className="sb-item sb-hide-sm">{activeFile.lang}</span>}
           <span className="sb-item sb-hide-sm">UTF-8</span>
+          <ThemePicker />
           <button type="button" className="sb-item sb-btn" onClick={() => setTerminalOpen((o) => !o)}>
             {terminalOpen ? 'Hide terminal' : 'Terminal'}
           </button>
         </footer>
       </div>
     </OpenFileContext.Provider>
+  );
+}
+
+/** Status-bar theme menu, opening upward like an editor's quick pick. */
+function ThemePicker() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  return (
+    <div className="theme-picker" ref={ref}>
+      <button type="button" className="sb-item sb-btn" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-haspopup="menu">
+        ◐ <span className="sb-hide-sm">&nbsp;Theme: Editor</span>
+        <span className="sb-show-sm">&nbsp;Theme</span>
+      </button>
+      {open && (
+        <ul className="theme-menu" role="menu">
+          <li className="theme-menu-title">Switch theme</li>
+          {THEMES.map((t) => (
+            <li key={t.id} role="none">
+              <button
+                type="button"
+                role="menuitemradio"
+                aria-checked={t.id === 'ide'}
+                className={t.id === 'ide' ? 'is-current' : undefined}
+                onClick={() => (t.id === 'ide' ? setOpen(false) : switchTheme(t.id))}
+              >
+                <span className="theme-check">{t.id === 'ide' ? '✓' : ''}</span>
+                {t.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

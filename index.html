@@ -21,15 +21,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.github.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="theme-color" content="#0b0c0f" />
+    <script>
+      // Pick the theme's background before any code loads (see src/themes.ts).
+      (function () {
+        var t = new URLSearchParams(location.search).get('theme');
+        try {
+          t = t || localStorage.getItem('theme');
+        } catch (e) {}
+        document.documentElement.dataset.theme = t === 'poster' ? 'poster' : 'ide';
+      })();
+    </script>
     <style>
-      html,
-      body {
+      html {
         background: #0b0c0f;
+      }
+      html[data-theme='poster'] {
+        background: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        html[data-theme='poster'] {
+          background: #0a0a0a;
+        }
       }
     </style>
 
