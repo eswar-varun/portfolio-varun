@@ -1,12 +1,10 @@
 import { Fragment, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
 import { GitHub, LinkedIn } from '../components/Icons';
 import { education, experience, otherProjects, profile, projects, skills, type Project } from '../data/profile';
-import { copyEmail, loadStylesheet } from '../lib/browser';
+import { copyEmail } from '../lib/browser';
 import { isWithinDays, languageColor, timeAgo, useGitHub, type GitHubData } from '../lib/github';
 import { switchTheme } from '../themes';
 import './midnight.css';
-
-loadStylesheet('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
 
 export default function MidnightApp() {
   useReveal();

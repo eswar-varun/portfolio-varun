@@ -7,7 +7,7 @@ import { profile } from '../data/profile';
 
 const API = 'https://api.github.com';
 const TTL_MS = 30 * 60 * 1000;
-const MAX_LANGUAGE_REPOS = 8;
+const MAX_LANGUAGE_REPOS = 6;
 
 export type GhUser = {
   login: string;
@@ -59,6 +59,21 @@ export type GitHubState =
   | { status: 'error' }
   | { status: 'ready'; data: GitHubData };
 
+// Don't compete with the page's own files: network requests wait until
+// after the load event and an idle moment. Cached data is used at once.
+let idle: Promise<void> | null = null;
+function afterLoad(): Promise<void> {
+  idle ??= new Promise((resolve) => {
+    const go = () => {
+      if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(() => resolve(), { timeout: 2000 });
+      else setTimeout(resolve, 300);
+    };
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go, { once: true });
+  });
+  return idle;
+}
+
 async function cachedJson<T>(path: string): Promise<T> {
   const key = `gh:${path}`;
   try {
@@ -70,6 +85,7 @@ async function cachedJson<T>(path: string): Promise<T> {
   } catch {
     // storage unavailable (private mode etc.) — fall through to network
   }
+  await afterLoad();
   const res = await fetch(API + path, { headers: { Accept: 'application/vnd.github+json' } });
   if (!res.ok) throw new Error(`GitHub ${res.status} for ${path}`);
   const data = (await res.json()) as T;

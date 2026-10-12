@@ -1,5 +1,13 @@
 /* Editor-style layout: title bar, explorer, tabs, terminal, status bar. */
 
+/* Self-hosted variable font (Latin subset), preloaded from index.html. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 html,
 body {
   margin: 0;

@@ -18,17 +18,45 @@
     <meta property="og:image" content="https://eswarvarun.web.app/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <!--theme-assets-->
     <script>
-      // Pick the theme's background before any code loads (see src/themes.ts).
+      // Before any code loads: pick the theme (see src/themes.ts), set its
+      // background, and start downloading its font, code and CSS in parallel
+      // with the main bundle.
       (function () {
         var t = new URLSearchParams(location.search).get('theme');
         try {
           t = t || localStorage.getItem('theme');
         } catch (e) {}
-        document.documentElement.dataset.theme = t === 'midnight' || t === 'cinema' || t === 'poster' ? 'midnight' : 'ide';
+        var theme = t === 'midnight' || t === 'cinema' || t === 'poster' ? 'midnight' : 'ide';
+        document.documentElement.dataset.theme = theme;
+
+        function link(rel, href, as) {
+          var l = document.createElement('link');
+          l.rel = rel;
+          l.href = href;
+          if (as) {
+            l.as = as;
+            if (as === 'font') {
+              l.type = 'font/woff2';
+              l.crossOrigin = 'anonymous';
+            }
+          }
+          document.head.appendChild(l);
+        }
+        var fonts = { ide: ['/fonts/jetbrains-mono.woff2'], midnight: ['/fonts/geist.woff2', '/fonts/geist-mono.woff2'] };
+        fonts[theme].forEach(function (f) {
+          link('preload', f, 'font');
+        });
+        var assets = (window.__themeAssets || {})[theme];
+        if (assets) {
+          assets.css.forEach(function (f) {
+            link('stylesheet', f);
+          });
+          assets.js.forEach(function (f) {
+            link('modulepreload', f);
+          });
+        }
       })();
     </script>
     <style>
