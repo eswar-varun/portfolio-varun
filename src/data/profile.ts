@@ -95,12 +95,17 @@ export const projects: Project[] = [
     slug: 'codexchange',
     title: 'CodeXchange',
     kind: 'Personal',
-    year: '2024',
-    summary: 'Translates code between 10+ programming languages using an LLM on Vertex AI.',
-    flow: ['Source code', 'Prompt templates', 'Vertex AI', 'Translated code'],
-    points: ['Prompt engineering on Vertex AI cut translation errors by about 30%.', 'Shipped as a Streamlit web app.'],
-    metrics: ['10+ languages', '~30% fewer translation errors'],
-    stack: ['Python', 'Vertex AI', 'Streamlit'],
+    year: '2024–26',
+    summary:
+      'Translates code between 12 programming languages with Gemini, and checks the translations by running them.',
+    flow: ['Source code', 'Gemini API', 'Code extraction', 'Run in target runtime', 'Compare with test cases'],
+    points: [
+      'Rebuilt on the Gemini API after Google retired PaLM, and fixed output parsing that leaked language tags into translated code.',
+      "Execution-based evaluation: 12 tasks built around cross-language traps (negative modulo, banker's rounding, JavaScript's string sort) run the translated code in Python or Node.",
+      "Model-generated code runs under Node's permission model, with no file writes or child processes, and a timeout.",
+    ],
+    metrics: ['12 languages', '12 trap tasks, executed', '42 tests in CI'],
+    stack: ['Python', 'Gemini API', 'Streamlit', 'Node.js'],
     repo: 'CodeXchange',
   },
 ];
@@ -108,9 +113,10 @@ export const projects: Project[] = [
 export const otherProjects = [
   {
     slug: 'parkinsons',
-    title: "Parkinson's Prediction",
-    summary: 'XGBoost model on 20+ vocal biomarkers, 94% accuracy, ROC-AUC validated.',
-    stack: ['Python', 'XGBoost', 'scikit-learn'],
+    title: "Parkinson's Detection: Evaluation Audit",
+    summary:
+      'My XGBoost model scored 94.9%, but every test-set speaker was also in training. Holding out whole people: 79.1% accuracy, ROC-AUC 0.75.',
+    stack: ['Python', 'XGBoost', 'scikit-learn', 'pandas'],
     repo: 'parkinsons-using-xgboost',
   },
 ];
@@ -129,7 +135,7 @@ export const experience = [
     stack: ['Python', 'FastAPI', 'Flask', 'Azure', 'Azure DevOps', 'LangChain'],
   },
   {
-    role: 'AI Code Reviewer (Contract)',
+    role: 'Freelance Software Engineer',
     company: 'Outlier (Scale AI)',
     period: 'Dec 2024 – Jun 2025',
     location: 'Remote',
