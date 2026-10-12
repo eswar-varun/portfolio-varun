@@ -81,7 +81,7 @@ const readme: FileDef = {
         <Com>{'<!-- Open a file on the left, or type `help` in the terminal. -->'}</Com>
       </Line>
       <Line>
-        <Com>{'<!-- Not into editors? Type `theme midnight`, or use the theme menu in the status bar. -->'}</Com>
+        <Com>{'<!-- Not into editors? Type `theme aurora`, or use the theme menu in the status bar. -->'}</Com>
       </Line>
     </Code>
   ),

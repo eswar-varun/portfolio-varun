@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 // Theme entry modules and the id the inline script in index.html uses.
 const THEME_ENTRIES: Record<string, RegExp> = {
   ide: /\/src\/editor\/IdeApp\.tsx$/,
-  midnight: /\/src\/midnight\/MidnightApp\.tsx$/,
+  aurora: /\/src\/aurora\/AuroraApp\.tsx$/,
 };
 
 /**

@@ -3,7 +3,7 @@
 
 export const THEMES = [
   { id: 'ide', label: 'Editor' },
-  { id: 'midnight', label: 'Midnight' },
+  { id: 'aurora', label: 'Aurora' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];
@@ -12,7 +12,7 @@ export const DEFAULT_THEME: ThemeId = 'ide';
 const KEY = 'theme';
 
 // Retired theme ids that should still land somewhere sensible.
-const RENAMED: Record<string, ThemeId> = { poster: 'midnight', cinema: 'midnight' };
+const RENAMED: Record<string, ThemeId> = { poster: 'aurora', cinema: 'aurora', midnight: 'aurora' };
 
 function isTheme(v: unknown): v is ThemeId {
   return THEMES.some((t) => t.id === v);

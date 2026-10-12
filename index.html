@@ -28,7 +28,7 @@
         try {
           t = t || localStorage.getItem('theme');
         } catch (e) {}
-        var theme = t === 'midnight' || t === 'cinema' || t === 'poster' ? 'midnight' : 'ide';
+        var theme = t === 'aurora' || t === 'midnight' || t === 'cinema' || t === 'poster' ? 'aurora' : 'ide';
         document.documentElement.dataset.theme = theme;
 
         function link(rel, href, as) {
@@ -44,7 +44,7 @@
           }
           document.head.appendChild(l);
         }
-        var fonts = { ide: ['/fonts/jetbrains-mono.woff2'], midnight: ['/fonts/geist.woff2', '/fonts/geist-mono.woff2'] };
+        var fonts = { ide: ['/fonts/jetbrains-mono.woff2'], aurora: ['/fonts/geist.woff2', '/fonts/geist-mono.woff2'] };
         fonts[theme].forEach(function (f) {
           link('preload', f, 'font');
         });
@@ -63,7 +63,7 @@
       html {
         background: #0b0c0f;
       }
-      html[data-theme='midnight'] {
+      html[data-theme='aurora'] {
         background: #07080b;
       }
     </style>

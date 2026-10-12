@@ -4,16 +4,16 @@ import { education, experience, otherProjects, profile, projects, skills, type P
 import { copyEmail } from '../lib/browser';
 import { isWithinDays, languageColor, timeAgo, useGitHub, type GitHubData } from '../lib/github';
 import { switchTheme } from '../themes';
-import './midnight.css';
+import './aurora.css';
 
-export default function MidnightApp() {
+export default function AuroraApp() {
   useReveal();
   useScrollToHashOnLoad();
   const [openProject, setOpenProject] = useState<Project | null>(null);
 
   return (
-    <div className="mn">
-      <div className="mn-ambient" aria-hidden />
+    <div className="au">
+      <div className="au-ambient" aria-hidden />
       <Nav />
       <main>
         <Hero />
@@ -39,18 +39,18 @@ function goTop(e: ReactMouseEvent) {
 
 function Nav() {
   return (
-    <header className="mn-nav-wrap">
-      <nav className="mn-nav" aria-label="Main">
-        <a href="/" className="mn-brand" onClick={goTop} title="Home">
+    <header className="au-nav-wrap">
+      <nav className="au-nav" aria-label="Main">
+        <a href="/" className="au-brand" onClick={goTop} title="Home">
           {profile.shortName}
         </a>
-        <div className="mn-nav-links">
+        <div className="au-nav-links">
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
           <a href="#github">GitHub</a>
           <a href="#contact">Contact</a>
         </div>
-        <a href={profile.links.resume} target="_blank" rel="noreferrer" className="mn-btn mn-btn-sm">
+        <a href={profile.links.resume} target="_blank" rel="noreferrer" className="au-btn au-btn-sm">
           Resume
         </a>
       </nav>
@@ -60,29 +60,29 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="mn-hero" id="top">
-      <div className="mn-hero-bg" aria-hidden>
-        <div className="mn-glow mn-glow-a" />
-        <div className="mn-glow mn-glow-b" />
+    <section className="au-hero" id="top">
+      <div className="au-hero-bg" aria-hidden>
+        <div className="au-glow au-glow-a" />
+        <div className="au-glow au-glow-b" />
       </div>
-      <div className="mn-container mn-hero-inner">
-        <span className="mn-pill mn-in" style={{ animationDelay: '0.05s' }}>
+      <div className="au-container au-hero-inner">
+        <span className="au-pill au-in" style={{ animationDelay: '0.05s' }}>
           <i aria-hidden /> {profile.status} · {profile.location.split(',')[0]}
         </span>
-        <h1 className="mn-name mn-in" style={{ animationDelay: '0.12s' }}>
+        <h1 className="au-name au-in" style={{ animationDelay: '0.12s' }}>
           {profile.name}
         </h1>
-        <p className="mn-lead mn-in" style={{ animationDelay: '0.2s' }}>
+        <p className="au-lead au-in" style={{ animationDelay: '0.2s' }}>
           Software engineer at {profile.company}. <b>I build backend services and AI tools</b> that take manual work off engineering teams.
         </p>
-        <div className="mn-hero-actions mn-in" style={{ animationDelay: '0.28s' }}>
-          <a href="#work" className="mn-btn">
+        <div className="au-hero-actions au-in" style={{ animationDelay: '0.28s' }}>
+          <a href="#work" className="au-btn">
             View work
           </a>
-          <a href={profile.links.resume} target="_blank" rel="noreferrer" className="mn-btn mn-btn-glass">
+          <a href={profile.links.resume} target="_blank" rel="noreferrer" className="au-btn au-btn-glass">
             Resume ↗
           </a>
-          <span className="mn-hero-icons">
+          <span className="au-hero-icons">
             <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
               <GitHub width={18} height={18} />
             </a>
@@ -98,13 +98,13 @@ function Hero() {
 
 function Section({ id, label, title, aside, children }: { id: string; label: string; title: string; aside?: string; children: ReactNode }) {
   return (
-    <section className="mn-section mn-container" id={id}>
-      <header className="mn-section-head" data-reveal>
+    <section className="au-section au-container" id={id}>
+      <header className="au-section-head" data-reveal>
         <div>
-          <p className="mn-label">{label}</p>
+          <p className="au-label">{label}</p>
           <h2>{title}</h2>
         </div>
-        {aside && <span className="mn-aside">{aside}</span>}
+        {aside && <span className="au-aside">{aside}</span>}
       </header>
       {children}
     </section>
@@ -119,7 +119,7 @@ function Card({ className = '', children, ...rest }: { className?: string; child
     e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
   };
   return (
-    <div className={`mn-card ${className}`} onMouseMove={onMove} {...rest}>
+    <div className={`au-card ${className}`} onMouseMove={onMove} {...rest}>
       {children}
     </div>
   );
@@ -136,28 +136,28 @@ function splitStat(s: string): [string, string] | null {
 function Work({ onOpen }: { onOpen: (p: Project) => void }) {
   return (
     <Section id="work" label="Selected work" title="What I've been building" aside={`${projects.length} projects`}>
-      <div className="mn-grid">
+      <div className="au-grid">
         {projects.map((p) => {
           const stat = p.metrics.map(splitStat).find(Boolean) ?? null;
           return (
-            <Card key={p.slug} className="mn-project" data-reveal>
-              <button type="button" className="mn-project-hit" onClick={() => onOpen(p)} aria-label={`${p.title}: details`} />
-              <p className="mn-meta">
+            <Card key={p.slug} className="au-project" data-reveal>
+              <button type="button" className="au-project-hit" onClick={() => onOpen(p)} aria-label={`${p.title}: details`} />
+              <p className="au-meta">
                 {p.kind} · {p.year}
               </p>
               <h3>{p.title}</h3>
-              <p className="mn-project-summary">{p.summary}</p>
+              <p className="au-project-summary">{p.summary}</p>
               {stat && (
-                <p className="mn-stat">
+                <p className="au-stat">
                   <b>{stat[0]}</b> <span>{stat[1]}</span>
                 </p>
               )}
-              <div className="mn-chips">
+              <div className="au-chips">
                 {p.stack.slice(0, 5).map((s) => (
                   <span key={s}>{s}</span>
                 ))}
               </div>
-              <span className="mn-more" aria-hidden>
+              <span className="au-more" aria-hidden>
                 Details →
               </span>
             </Card>
@@ -165,10 +165,10 @@ function Work({ onOpen }: { onOpen: (p: Project) => void }) {
         })}
       </div>
       {otherProjects.map((o) => (
-        <a key={o.title} className="mn-also" href={`${profile.links.github}/${o.repo}`} target="_blank" rel="noreferrer" data-reveal>
-          <span className="mn-meta">Also</span>
+        <a key={o.title} className="au-also" href={`${profile.links.github}/${o.repo}`} target="_blank" rel="noreferrer" data-reveal>
+          <span className="au-meta">Also</span>
           <b>{o.title}</b>
-          <span className="mn-also-summary">{o.summary}</span>
+          <span className="au-also-summary">{o.summary}</span>
           <span aria-hidden>↗</span>
         </a>
       ))}
@@ -189,7 +189,7 @@ function ProjectDialog({ project: p, onClose }: { project: Project | null; onClo
   return (
     <dialog
       ref={ref}
-      className="mn-dialog"
+      className="au-dialog"
       onClose={onClose}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose(); // backdrop
@@ -197,42 +197,42 @@ function ProjectDialog({ project: p, onClose }: { project: Project | null; onClo
       aria-label={p ? p.title : 'Project details'}
     >
       {p && (
-        <div className="mn-dialog-body" tabIndex={-1} autoFocus>
-          <button type="button" className="mn-dialog-close" onClick={onClose} aria-label="Close">
+        <div className="au-dialog-body" tabIndex={-1} autoFocus>
+          <button type="button" className="au-dialog-close" onClick={onClose} aria-label="Close">
             ×
           </button>
-          <p className="mn-meta">
+          <p className="au-meta">
             {p.kind} · {p.year}
           </p>
           <h3>{p.title}</h3>
-          <p className="mn-dialog-summary">{p.summary}</p>
+          <p className="au-dialog-summary">{p.summary}</p>
 
-          <p className="mn-label">Pipeline</p>
-          <ol className="mn-flow">
+          <p className="au-label">Pipeline</p>
+          <ol className="au-flow">
             {p.flow.map((step, i) => (
               <Fragment key={step}>
                 {i > 0 && (
-                  <li className="mn-flow-arrow" aria-hidden>
+                  <li className="au-flow-arrow" aria-hidden>
                     →
                   </li>
                 )}
-                <li className="mn-flow-step">{step}</li>
+                <li className="au-flow-step">{step}</li>
               </Fragment>
             ))}
           </ol>
 
-          <div className="mn-dialog-cols">
+          <div className="au-dialog-cols">
             <div>
-              <p className="mn-label">What I built</p>
-              <ul className="mn-points">
+              <p className="au-label">What I built</p>
+              <ul className="au-points">
                 {p.points.map((pt) => (
                   <li key={pt}>{pt}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="mn-label">Results</p>
-              <ul className="mn-results">
+              <p className="au-label">Results</p>
+              <ul className="au-results">
                 {p.metrics.map((m) => (
                   <li key={m}>{m}</li>
                 ))}
@@ -240,23 +240,23 @@ function ProjectDialog({ project: p, onClose }: { project: Project | null; onClo
             </div>
           </div>
 
-          <div className="mn-chips">
+          <div className="au-chips">
             {p.stack.map((s) => (
               <span key={s}>{s}</span>
             ))}
           </div>
-          <div className="mn-dialog-links">
+          <div className="au-dialog-links">
             {p.repo && (
-              <a className="mn-btn mn-btn-sm" href={`${profile.links.github}/${p.repo}`} target="_blank" rel="noreferrer">
+              <a className="au-btn au-btn-sm" href={`${profile.links.github}/${p.repo}`} target="_blank" rel="noreferrer">
                 View code ↗
               </a>
             )}
             {p.demo && (
-              <a className="mn-btn mn-btn-sm mn-btn-glass" href={p.demo} target="_blank" rel="noreferrer">
+              <a className="au-btn au-btn-sm au-btn-glass" href={p.demo} target="_blank" rel="noreferrer">
                 Live demo ↗
               </a>
             )}
-            {p.private && <span className="mn-meta">Internal project · code is private</span>}
+            {p.private && <span className="au-meta">Internal project · code is private</span>}
           </div>
         </div>
       )}
@@ -269,11 +269,11 @@ function ProjectDialog({ project: p, onClose }: { project: Project | null; onClo
 function Experience() {
   return (
     <Section id="experience" label="Experience" title="Where I've worked">
-      <Card className="mn-panel" data-reveal>
-        <ol className="mn-jobs">
+      <Card className="au-panel" data-reveal>
+        <ol className="au-jobs">
           {experience.map((job) => (
-            <li key={job.company} className="mn-job">
-              <div className="mn-job-when">
+            <li key={job.company} className="au-job">
+              <div className="au-job-when">
                 <span>{job.period}</span>
                 <span>{job.location}</span>
               </div>
@@ -281,12 +281,12 @@ function Experience() {
                 <h3>
                   {job.role} <span>· {job.company}</span>
                 </h3>
-                <ul className="mn-points">
+                <ul className="au-points">
                   {job.points.map((pt) => (
                     <li key={pt}>{pt}</li>
                   ))}
                 </ul>
-                <div className="mn-chips">
+                <div className="au-chips">
                   {job.stack.map((s) => (
                     <span key={s}>{s}</span>
                   ))}
@@ -294,8 +294,8 @@ function Experience() {
               </div>
             </li>
           ))}
-          <li className="mn-job">
-            <div className="mn-job-when">
+          <li className="au-job">
+            <div className="au-job-when">
               <span>{education.period}</span>
               <span>Education</span>
             </div>
@@ -303,7 +303,7 @@ function Experience() {
               <h3>
                 {education.degree} <span>· {education.school}</span>
               </h3>
-              <p className="mn-job-note">
+              <p className="au-job-note">
                 {education.detail} · {education.certs.join(' · ')}
               </p>
             </div>
@@ -311,11 +311,11 @@ function Experience() {
         </ol>
       </Card>
 
-      <div className="mn-skills">
+      <div className="au-skills">
         {skills.map((g) => (
-          <Card key={g.group} className="mn-skill" data-reveal>
-            <p className="mn-label">{g.group}</p>
-            <div className="mn-chips">
+          <Card key={g.group} className="au-skill" data-reveal>
+            <p className="au-label">{g.group}</p>
+            <div className="au-chips">
               {g.items.map((s) => (
                 <span key={s}>{s}</span>
               ))}
@@ -333,11 +333,11 @@ function GitHubSection() {
   const gh = useGitHub(profile.githubUser);
   return (
     <Section id="github" label="Open source" title="On GitHub" aside="Live from the API">
-      {gh.status === 'loading' && <p className="mn-muted">Loading repositories…</p>}
+      {gh.status === 'loading' && <p className="au-muted">Loading repositories…</p>}
       {gh.status === 'error' && (
-        <p className="mn-muted">
+        <p className="au-muted">
           GitHub didn't answer.{' '}
-          <a className="mn-link" href={profile.links.github} target="_blank" rel="noreferrer">
+          <a className="au-link" href={profile.links.github} target="_blank" rel="noreferrer">
             Open my profile ↗
           </a>
         </p>
@@ -352,25 +352,25 @@ function GitHubPanel({ data }: { data: GitHubData }) {
   const total = languages.reduce((s, l) => s + l.bytes, 0) || 1;
   const top = languages.slice(0, 5);
   return (
-    <div className="mn-gh" data-reveal>
-      <div className="mn-gh-stats">
-        <Card className="mn-tile">
-          <p className="mn-label">Repositories</p>
+    <div className="au-gh" data-reveal>
+      <div className="au-gh-stats">
+        <Card className="au-tile">
+          <p className="au-label">Repositories</p>
           <b>{user.public_repos}</b>
         </Card>
-        <Card className="mn-tile">
-          <p className="mn-label">Languages</p>
+        <Card className="au-tile">
+          <p className="au-label">Languages</p>
           <b>{languages.length}</b>
         </Card>
-        <Card className="mn-tile">
-          <p className="mn-label">On GitHub since</p>
+        <Card className="au-tile">
+          <p className="au-label">On GitHub since</p>
           <b>{new Date(user.created_at).getFullYear()}</b>
         </Card>
       </div>
-      <Card className="mn-panel">
+      <Card className="au-panel">
         {top.length > 0 && (
-          <div className="mn-langs">
-            <div className="mn-langbar">
+          <div className="au-langs">
+            <div className="au-langbar">
               {top.map((l) => (
                 <span key={l.name} style={{ flexGrow: l.bytes, background: languageColor(l.name) }} />
               ))}
@@ -385,14 +385,14 @@ function GitHubPanel({ data }: { data: GitHubData }) {
             </ul>
           </div>
         )}
-        <ul className="mn-repos">
+        <ul className="au-repos">
           {repos.slice(0, 8).map((r) => (
             <li key={r.name}>
               <a href={r.html_url} target="_blank" rel="noreferrer">
                 <b>{r.name}</b>
-                <span className="mn-repo-desc">{r.description ?? ''}</span>
-                <span className="mn-meta">{r.language ?? ''}</span>
-                <span className="mn-meta">{isWithinDays(r.pushed_at, 180) ? timeAgo(r.pushed_at) : ''}</span>
+                <span className="au-repo-desc">{r.description ?? ''}</span>
+                <span className="au-meta">{r.language ?? ''}</span>
+                <span className="au-meta">{isWithinDays(r.pushed_at, 180) ? timeAgo(r.pushed_at) : ''}</span>
                 <span aria-hidden>↗</span>
               </a>
             </li>
@@ -408,18 +408,18 @@ function GitHubPanel({ data }: { data: GitHubData }) {
 function Contact() {
   const [copied, setCopied] = useState(false);
   return (
-    <section className="mn-section mn-container" id="contact">
-      <Card className="mn-contact" data-reveal>
-        <div className="mn-glow mn-glow-c" aria-hidden />
-        <p className="mn-label">Contact</p>
+    <section className="au-section au-container" id="contact">
+      <Card className="au-contact" data-reveal>
+        <div className="au-glow au-glow-c" aria-hidden />
+        <p className="au-label">Contact</p>
         <h2>Hiring for an SDE role? I'd like to hear about it.</h2>
-        <a className="mn-email" href={`mailto:${profile.email}`}>
+        <a className="au-email" href={`mailto:${profile.email}`}>
           {profile.email}
         </a>
-        <div className="mn-contact-actions">
+        <div className="au-contact-actions">
           <button
             type="button"
-            className="mn-btn"
+            className="au-btn"
             onClick={async () => {
               if (await copyEmail()) {
                 setCopied(true);
@@ -429,10 +429,10 @@ function Contact() {
           >
             {copied ? 'Copied' : 'Copy email'}
           </button>
-          <a className="mn-btn mn-btn-glass" href={profile.links.linkedin} target="_blank" rel="noreferrer">
+          <a className="au-btn au-btn-glass" href={profile.links.linkedin} target="_blank" rel="noreferrer">
             LinkedIn ↗
           </a>
-          <a className="mn-btn mn-btn-glass" href={profile.links.github} target="_blank" rel="noreferrer">
+          <a className="au-btn au-btn-glass" href={profile.links.github} target="_blank" rel="noreferrer">
             GitHub ↗
           </a>
         </div>
@@ -443,11 +443,11 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="mn-footer mn-container">
+    <footer className="au-footer au-container">
       <span>
         © {new Date().getFullYear()} {profile.name}
       </span>
-      <span className="mn-footer-links">
+      <span className="au-footer-links">
         {profile.sourceRepo && (
           <a href={profile.sourceRepo} target="_blank" rel="noreferrer">
             Source
@@ -470,7 +470,7 @@ function Footer() {
 function useReveal() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('mn-still');
+      document.documentElement.classList.add('au-still');
       return;
     }
     const io = new IntersectionObserver(

@@ -1,4 +1,4 @@
-/* Midnight theme: dark product-site look with soft glows and glass panels.
+/* Aurora theme: dark product-site look with soft glows and glass panels.
    Only loaded when this theme is active (see src/themes.ts). */
 
 /* Self-hosted variable fonts (Latin subset), preloaded from index.html. */
@@ -58,26 +58,26 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-:where(.mn) h1,
-:where(.mn) h2,
-:where(.mn) h3,
-:where(.mn) p {
+:where(.au) h1,
+:where(.au) h2,
+:where(.au) h3,
+:where(.au) p {
   margin: 0;
 }
 
-:where(.mn) ul,
-:where(.mn) ol {
+:where(.au) ul,
+:where(.au) ol {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-:where(.mn) a {
+:where(.au) a {
   color: inherit;
   text-decoration: none;
 }
 
-:where(.mn) button {
+:where(.au) button {
   font: inherit;
   color: inherit;
   background: none;
@@ -86,47 +86,47 @@ body {
   cursor: pointer;
 }
 
-.mn ::selection {
+.au ::selection {
   background: rgba(91, 95, 240, 0.45);
   color: #fff;
 }
 
-.mn :focus-visible {
+.au :focus-visible {
   outline: 2px solid var(--indigo);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
-.mn-container {
+.au-container {
   width: 100%;
   max-width: 1160px;
   margin-inline: auto;
   padding-inline: clamp(16px, 4vw, 24px);
 }
 
-.mn-muted {
+.au-muted {
   color: var(--muted);
 }
 
-.mn-label {
+.au-label {
   font: 400 12.5px/1.4 var(--mono);
   letter-spacing: 0.02em;
   color: var(--muted);
 }
 
-.mn-meta {
+.au-meta {
   font: 400 12.5px/1.4 var(--mono);
   color: var(--muted);
 }
 
-.mn-link {
+.au-link {
   color: var(--text);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 /* Ambient light behind the whole page */
-.mn-ambient {
+.au-ambient {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -136,14 +136,14 @@ body {
     radial-gradient(45vw 45vw at -10% 100%, rgba(91, 95, 240, 0.06), transparent 70%);
 }
 
-.mn > main,
-.mn-footer {
+.au > main,
+.au-footer {
   position: relative;
   z-index: 1;
 }
 
 /* ── Buttons ── */
-.mn-btn {
+.au-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -158,23 +158,23 @@ body {
   transition: transform 0.25s var(--ease), background-color 0.25s, box-shadow 0.25s;
 }
 
-.mn-btn:hover {
+.au-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 30px -8px rgba(255, 255, 255, 0.35);
 }
 
-.mn-btn-glass {
+.au-btn-glass {
   border: 1px solid var(--border-2);
   background: var(--glass-2);
   color: var(--text);
 }
 
-.mn-btn-glass:hover {
+.au-btn-glass:hover {
   background: rgba(255, 255, 255, 0.1);
   box-shadow: none;
 }
 
-.mn-btn-sm {
+.au-btn-sm {
   height: 36px;
   padding: 0 14px;
   border-radius: 10px;
@@ -182,14 +182,14 @@ body {
 }
 
 /* ── Nav ── */
-.mn-nav-wrap {
+.au-nav-wrap {
   position: sticky;
   top: 0;
   z-index: 20;
   padding: calc(16px + env(safe-area-inset-top, 0px)) clamp(12px, 3vw, 24px) 0;
 }
 
-.mn-nav {
+.au-nav {
   display: flex;
   align-items: center;
   gap: 26px;
@@ -204,13 +204,13 @@ body {
   box-shadow: 0 10px 40px -20px rgba(0, 0, 0, 0.8);
 }
 
-.mn-brand {
+.au-brand {
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #fff;
 }
 
-.mn-nav-links {
+.au-nav-links {
   display: flex;
   gap: 24px;
   margin-left: auto;
@@ -218,16 +218,16 @@ body {
   color: var(--text-2);
 }
 
-.mn-nav-links a {
+.au-nav-links a {
   transition: color 0.2s;
 }
 
-.mn-nav-links a:hover {
+.au-nav-links a:hover {
   color: #fff;
 }
 
 /* ── Hero ── */
-.mn-hero {
+.au-hero {
   position: relative;
   margin-top: -80px;
   padding: clamp(180px, 22vw, 230px) 0 clamp(90px, 12vw, 140px);
@@ -236,19 +236,19 @@ body {
 /* Glows live in their own clipped layer so they can't cause sideways
    scrolling. They are plain radial gradients rather than blurred shapes:
    same look, but cheap to draw while scrolling on phones. */
-.mn-hero-bg {
+.au-hero-bg {
   position: absolute;
   inset: 0 0 -160px;
   overflow: hidden;
   pointer-events: none;
 }
 
-.mn-glow {
+.au-glow {
   position: absolute;
   pointer-events: none;
 }
 
-.mn-glow-a {
+.au-glow-a {
   width: 1000px;
   height: 1000px;
   left: -350px;
@@ -256,7 +256,7 @@ body {
   background: radial-gradient(closest-side, rgba(59, 63, 224, 0.5), rgba(59, 63, 224, 0.26) 45%, transparent);
 }
 
-.mn-glow-b {
+.au-glow-b {
   width: 900px;
   height: 900px;
   right: -350px;
@@ -266,27 +266,27 @@ body {
 
 /* Slow drift only on desktops, where there's GPU headroom to spare. */
 @media (hover: hover) and (pointer: fine) {
-  .mn-glow-a {
-    animation: mn-drift 18s ease-in-out infinite alternate;
+  .au-glow-a {
+    animation: au-drift 18s ease-in-out infinite alternate;
     will-change: transform;
   }
-  .mn-glow-b {
-    animation: mn-drift 22s ease-in-out infinite alternate-reverse;
+  .au-glow-b {
+    animation: au-drift 22s ease-in-out infinite alternate-reverse;
     will-change: transform;
   }
 }
 
-@keyframes mn-drift {
+@keyframes au-drift {
   to {
     transform: translate(40px, 30px) scale(1.06);
   }
 }
 
-.mn-hero-inner {
+.au-hero-inner {
   position: relative;
 }
 
-.mn-pill {
+.au-pill {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -298,7 +298,7 @@ body {
   color: #c3c7d3;
 }
 
-.mn-pill i {
+.au-pill i {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -306,7 +306,7 @@ body {
   box-shadow: 0 0 10px var(--green);
 }
 
-.mn-name {
+.au-name {
   margin-top: 28px;
   font-size: clamp(3rem, 8.5vw, 6.2rem);
   font-weight: 600;
@@ -318,7 +318,7 @@ body {
   color: transparent;
 }
 
-.mn-lead {
+.au-lead {
   max-width: 34ch;
   margin-top: 26px;
   font-size: clamp(1.15rem, 2.2vw, 1.55rem);
@@ -327,12 +327,12 @@ body {
   color: var(--text-2);
 }
 
-.mn-lead b {
+.au-lead b {
   font-weight: 400;
   color: var(--text);
 }
 
-.mn-hero-actions {
+.au-hero-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -340,13 +340,13 @@ body {
   margin-top: 38px;
 }
 
-.mn-hero-icons {
+.au-hero-icons {
   display: inline-flex;
   gap: 4px;
   margin-left: 8px;
 }
 
-.mn-hero-icons a {
+.au-hero-icons a {
   display: inline-grid;
   place-items: center;
   width: 42px;
@@ -356,16 +356,16 @@ body {
   transition: color 0.2s, background-color 0.2s;
 }
 
-.mn-hero-icons a:hover {
+.au-hero-icons a:hover {
   color: #fff;
   background: var(--glass-2);
 }
 
-.mn-in {
-  animation: mn-up 0.9s var(--ease) both;
+.au-in {
+  animation: au-up 0.9s var(--ease) both;
 }
 
-@keyframes mn-up {
+@keyframes au-up {
   from {
     opacity: 0;
     transform: translateY(14px);
@@ -373,11 +373,11 @@ body {
 }
 
 /* ── Sections ── */
-.mn-section {
+.au-section {
   padding-top: clamp(72px, 10vw, 120px);
 }
 
-.mn-section-head {
+.au-section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -385,7 +385,7 @@ body {
   margin-bottom: 28px;
 }
 
-.mn-section-head h2 {
+.au-section-head h2 {
   margin-top: 8px;
   font-size: clamp(1.8rem, 3.6vw, 2.6rem);
   font-weight: 500;
@@ -393,14 +393,14 @@ body {
   letter-spacing: -0.03em;
 }
 
-.mn-aside {
+.au-aside {
   font: 400 12.5px/1 var(--mono);
   color: var(--muted);
   white-space: nowrap;
 }
 
 /* ── Glass card with pointer spotlight ── */
-.mn-card {
+.au-card {
   --mx: 50%;
   --my: 0%;
   position: relative;
@@ -412,53 +412,53 @@ body {
   transition: border-color 0.3s, transform 0.4s var(--ease);
 }
 
-.mn-card:hover {
+.au-card:hover {
   border-color: var(--border-2);
 }
 
 /* ── Work ── */
-.mn-grid {
+.au-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
-.mn-project {
+.au-project {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 28px;
 }
 
-.mn-project:hover {
+.au-project:hover {
   transform: translateY(-2px);
 }
 
-.mn-project-hit {
+.au-project-hit {
   position: absolute;
   inset: 0;
   z-index: 1;
   border-radius: 20px;
 }
 
-.mn-project h3 {
+.au-project h3 {
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
 
-.mn-project-summary {
+.au-project-summary {
   color: var(--text-2);
 }
 
-.mn-stat {
+.au-stat {
   display: flex;
   align-items: baseline;
   gap: 10px;
   margin-top: 6px;
 }
 
-.mn-stat b {
+.au-stat b {
   font-size: 2.4rem;
   font-weight: 500;
   letter-spacing: -0.04em;
@@ -466,18 +466,18 @@ body {
   color: #fff;
 }
 
-.mn-stat span {
+.au-stat span {
   color: var(--muted);
 }
 
-.mn-chips {
+.au-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 4px;
 }
 
-.mn-chips span {
+.au-chips span {
   padding: 4px 9px;
   border-radius: 8px;
   background: var(--glass-2);
@@ -485,7 +485,7 @@ body {
   color: #c3c7d3;
 }
 
-.mn-more {
+.au-more {
   margin-top: auto;
   padding-top: 8px;
   font-size: 14px;
@@ -493,12 +493,12 @@ body {
   transition: color 0.2s, transform 0.3s var(--ease);
 }
 
-.mn-project:hover .mn-more {
+.au-project:hover .au-more {
   color: #fff;
   transform: translateX(3px);
 }
 
-.mn-also {
+.au-also {
   display: grid;
   grid-template-columns: auto auto minmax(0, 1fr) auto;
   align-items: baseline;
@@ -511,18 +511,18 @@ body {
   transition: border-color 0.3s, color 0.3s;
 }
 
-.mn-also b {
+.au-also b {
   font-weight: 500;
   color: var(--text);
 }
 
-.mn-also:hover {
+.au-also:hover {
   border-color: var(--border-2);
   color: var(--text);
 }
 
 /* ── Project dialog ── */
-.mn-dialog {
+.au-dialog {
   width: min(760px, calc(100% - 32px));
   max-height: calc(100dvh - 48px);
   padding: 0;
@@ -535,23 +535,23 @@ body {
   box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.9);
 }
 
-.mn-dialog::backdrop {
+.au-dialog::backdrop {
   background: rgba(4, 5, 8, 0.6);
   backdrop-filter: blur(4px);
 }
 
-.mn-dialog[open] {
-  animation: mn-pop 0.35s var(--ease);
+.au-dialog[open] {
+  animation: au-pop 0.35s var(--ease);
 }
 
-@keyframes mn-pop {
+@keyframes au-pop {
   from {
     opacity: 0;
     transform: translateY(12px) scale(0.98);
   }
 }
 
-.mn-dialog-body {
+.au-dialog-body {
   position: relative;
   outline: none;
   display: grid;
@@ -559,19 +559,19 @@ body {
   padding: clamp(24px, 4vw, 36px);
 }
 
-.mn-dialog-body h3 {
+.au-dialog-body h3 {
   font-size: clamp(1.6rem, 3.4vw, 2.1rem);
   font-weight: 500;
   letter-spacing: -0.03em;
 }
 
-.mn-dialog-summary {
+.au-dialog-summary {
   margin-bottom: 10px;
   font-size: 1.08rem;
   color: var(--text-2);
 }
 
-.mn-dialog-close {
+.au-dialog-close {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -585,12 +585,12 @@ body {
   color: var(--text-2);
 }
 
-.mn-dialog-close:hover {
+.au-dialog-close:hover {
   background: var(--glass-2);
   color: #fff;
 }
 
-.mn-flow {
+.au-flow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -598,7 +598,7 @@ body {
   margin-bottom: 12px;
 }
 
-.mn-flow-step {
+.au-flow-step {
   padding: 6px 10px;
   border: 1px solid var(--border-2);
   border-radius: 9px;
@@ -607,33 +607,33 @@ body {
   color: #d5d8e2;
 }
 
-.mn-flow-arrow {
+.au-flow-arrow {
   color: var(--muted);
 }
 
-.mn-dialog-cols {
+.au-dialog-cols {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 28px;
   margin-bottom: 8px;
 }
 
-.mn-dialog-cols .mn-label {
+.au-dialog-cols .au-label {
   margin-bottom: 12px;
 }
 
-.mn-points {
+.au-points {
   display: grid;
   gap: 10px;
 }
 
-.mn-points li {
+.au-points li {
   position: relative;
   padding-left: 18px;
   color: var(--text-2);
 }
 
-.mn-points li::before {
+.au-points li::before {
   content: '';
   position: absolute;
   left: 2px;
@@ -644,12 +644,12 @@ body {
   background: linear-gradient(135deg, var(--indigo), var(--teal));
 }
 
-.mn-results {
+.au-results {
   display: grid;
   gap: 8px;
 }
 
-.mn-results li {
+.au-results li {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -657,7 +657,7 @@ body {
   font-weight: 500;
 }
 
-.mn-dialog-links {
+.au-dialog-links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -666,15 +666,15 @@ body {
 }
 
 /* ── Experience ── */
-.mn-panel {
+.au-panel {
   padding: clamp(20px, 3vw, 32px);
 }
 
-.mn-jobs {
+.au-jobs {
   display: grid;
 }
 
-.mn-job {
+.au-job {
   display: grid;
   grid-template-columns: 210px minmax(0, 1fr);
   gap: 28px;
@@ -682,16 +682,16 @@ body {
   border-top: 1px solid var(--border);
 }
 
-.mn-job:first-child {
+.au-job:first-child {
   padding-top: 0;
   border-top: 0;
 }
 
-.mn-job:last-child {
+.au-job:last-child {
   padding-bottom: 0;
 }
 
-.mn-job-when {
+.au-job-when {
   display: grid;
   align-content: start;
   gap: 4px;
@@ -699,62 +699,62 @@ body {
   color: var(--text-2);
 }
 
-.mn-job-when span + span {
+.au-job-when span + span {
   color: var(--muted);
 }
 
-.mn-job h3 {
+.au-job h3 {
   margin-bottom: 14px;
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
 
-.mn-job h3 span {
+.au-job h3 span {
   font-weight: 400;
   color: var(--text-2);
 }
 
-.mn-job .mn-chips {
+.au-job .au-chips {
   margin-top: 16px;
 }
 
-.mn-job-note {
+.au-job-note {
   color: var(--text-2);
 }
 
-.mn-skills {
+.au-skills {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 12px;
   margin-top: 16px;
 }
 
-.mn-skill {
+.au-skill {
   padding: 20px;
 }
 
-.mn-skill .mn-label {
+.au-skill .au-label {
   margin-bottom: 12px;
 }
 
 /* ── GitHub ── */
-.mn-gh {
+.au-gh {
   display: grid;
   gap: 16px;
 }
 
-.mn-gh-stats {
+.au-gh-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
-.mn-tile {
+.au-tile {
   padding: 22px 24px;
 }
 
-.mn-tile b {
+.au-tile b {
   display: block;
   margin-top: 10px;
   font-size: clamp(2rem, 4vw, 2.8rem);
@@ -763,11 +763,11 @@ body {
   line-height: 1;
 }
 
-.mn-langs {
+.au-langs {
   margin-bottom: 22px;
 }
 
-.mn-langbar {
+.au-langbar {
   display: flex;
   gap: 3px;
   height: 8px;
@@ -775,11 +775,11 @@ body {
   border-radius: 99px;
 }
 
-.mn-langbar span {
+.au-langbar span {
   min-width: 4px;
 }
 
-.mn-langs ul {
+.au-langs ul {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 20px;
@@ -788,11 +788,11 @@ body {
   color: var(--text-2);
 }
 
-.mn-langs li span {
+.au-langs li span {
   color: var(--muted);
 }
 
-.mn-langs i {
+.au-langs i {
   display: inline-block;
   width: 8px;
   height: 8px;
@@ -800,7 +800,7 @@ body {
   border-radius: 50%;
 }
 
-.mn-repos a {
+.au-repos a {
   display: grid;
   grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) 130px 110px 16px;
   align-items: baseline;
@@ -810,28 +810,28 @@ body {
   transition: color 0.2s;
 }
 
-.mn-repos b {
+.au-repos b {
   font-weight: 500;
 }
 
-.mn-repo-desc {
+.au-repo-desc {
   color: var(--text-2);
 }
 
-.mn-repos a:hover b {
+.au-repos a:hover b {
   color: #fff;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 /* ── Contact ── */
-.mn-contact {
+.au-contact {
   overflow: hidden;
   padding: clamp(36px, 6vw, 64px);
   text-align: center;
 }
 
-.mn-glow-c {
+.au-glow-c {
   width: 900px;
   height: 440px;
   left: 50%;
@@ -840,11 +840,11 @@ body {
   background: radial-gradient(closest-side, rgba(59, 63, 224, 0.4), rgba(14, 143, 138, 0.18) 55%, transparent);
 }
 
-.mn-contact > *:not(.mn-glow) {
+.au-contact > *:not(.au-glow) {
   position: relative;
 }
 
-.mn-contact h2 {
+.au-contact h2 {
   max-width: 22ch;
   margin: 12px auto 0;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
@@ -853,7 +853,7 @@ body {
   letter-spacing: -0.03em;
 }
 
-.mn-email {
+.au-email {
   display: inline-block;
   margin-top: 22px;
   font: 400 clamp(1rem, 2.4vw, 1.25rem) / 1.4 var(--mono);
@@ -863,12 +863,12 @@ body {
 }
 
 @media (hover: hover) {
-  .mn-email:hover {
+  .au-email:hover {
     color: #fff;
   }
 }
 
-.mn-contact-actions {
+.au-contact-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -877,7 +877,7 @@ body {
 }
 
 /* ── Footer ── */
-.mn-footer {
+.au-footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -888,14 +888,14 @@ body {
   color: var(--muted);
 }
 
-.mn-footer-links {
+.au-footer-links {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
 }
 
-.mn-footer-links a:hover,
-.mn-footer-links button:hover {
+.au-footer-links a:hover,
+.au-footer-links button:hover {
   color: var(--text);
 }
 
@@ -907,73 +907,73 @@ body {
 }
 
 [data-reveal].is-in,
-.mn-still [data-reveal] {
+.au-still [data-reveal] {
   opacity: 1;
   transform: none;
 }
 
-.mn-project[data-reveal].is-in:hover {
+.au-project[data-reveal].is-in:hover {
   transform: translateY(-2px);
 }
 
 /* ── Smaller screens ── */
 @media (max-width: 860px) {
-  .mn-nav-links {
+  .au-nav-links {
     display: none;
   }
-  .mn-nav {
+  .au-nav {
     background: rgba(16, 18, 26, 0.94);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-  .mn-nav .mn-btn {
+  .au-nav .au-btn {
     margin-left: auto;
   }
-  .mn-grid,
-  .mn-dialog-cols {
+  .au-grid,
+  .au-dialog-cols {
     grid-template-columns: 1fr;
   }
-  .mn-job {
+  .au-job {
     grid-template-columns: 1fr;
     gap: 10px;
   }
-  .mn-repos a {
+  .au-repos a {
     grid-template-columns: minmax(0, 1fr) auto 16px;
     gap: 4px 12px;
   }
-  .mn-repo-desc {
+  .au-repo-desc {
     grid-column: 1 / -1;
     grid-row: 2;
   }
-  .mn-repos a > span:nth-child(4) {
+  .au-repos a > span:nth-child(4) {
     display: none;
   }
-  .mn-also {
+  .au-also {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 4px 12px;
   }
-  .mn-also .mn-meta {
+  .au-also .au-meta {
     grid-column: 1;
   }
-  .mn-also b {
+  .au-also b {
     grid-column: 1;
     grid-row: 2;
   }
-  .mn-also > span:last-child {
+  .au-also > span:last-child {
     grid-column: 2;
     grid-row: 2;
   }
-  .mn-also-summary {
+  .au-also-summary {
     grid-column: 1 / -1;
     grid-row: 3;
   }
-  .mn-glow-a {
+  .au-glow-a {
     width: 700px;
     height: 700px;
     left: -330px;
     top: -330px;
   }
-  .mn-glow-b {
+  .au-glow-b {
     width: 600px;
     height: 600px;
     right: -320px;
@@ -982,28 +982,28 @@ body {
 }
 
 @media (max-width: 520px) {
-  .mn-gh-stats {
+  .au-gh-stats {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
   }
-  .mn-tile {
+  .au-tile {
     padding: 16px;
   }
-  .mn-tile .mn-label {
+  .au-tile .au-label {
     font-size: 11px;
   }
-  .mn-hero-icons {
+  .au-hero-icons {
     margin-left: 0;
   }
-  .mn-section-head .mn-aside {
+  .au-section-head .au-aside {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mn-glow,
-  .mn-in,
-  .mn-dialog[open] {
+  .au-glow,
+  .au-in,
+  .au-dialog[open] {
     animation: none;
   }
   [data-reveal] {
