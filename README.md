@@ -7,9 +7,9 @@ Personal site of **Eswar Varun S**, software engineer. Live at **https://eswarva
 The site has two themes over the same content:
 
 - **Editor** (default): an explorer with my projects as Markdown files, `experience.ts`, `skills.json`, a live `github.log`, tabs, and a terminal that takes commands (`help`, `ls`, `open <file>`, `theme`, `resume`, `email`).
-- **Cinema**: a quiet sci-fi title-sequence look: ivory on near-black with one amber accent, film grain, HUD corners, a live Chennai clock, projects as chapters with pipeline "trajectories", and GitHub as a live telemetry readout.
+- **Midnight**: a dark product-site look: soft indigo and teal glows, a floating glass nav, project cards with a pointer spotlight that open into a glass detail panel, and live GitHub stats.
 
-Switch from the status-bar menu, the `theme cinema` terminal command, the "View as editor" link in Cinema's credits, or a link like [`?theme=cinema`](https://eswarvarun.web.app/?theme=cinema). The choice is remembered per visitor.
+Switch from the status-bar menu, the `theme midnight` terminal command, the "View as editor" link in Midnight's footer, or a link like [`?theme=midnight`](https://eswarvarun.web.app/?theme=midnight). The choice is remembered per visitor.
 
 ## How it works
 
@@ -48,7 +48,7 @@ src/
   editor/files.tsx    the files shown in the editor
   editor/syntax.tsx   token and line components
   editor/Terminal.tsx terminal commands, history, completion
-  cinema/             cinema theme
+  midnight/           midnight theme
   lib/github.ts       GitHub API client with caching
 public/               favicon, social preview image, resume.pdf
 ```
