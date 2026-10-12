@@ -6,10 +6,10 @@ Personal site of **Eswar Varun S**, software engineer. Live at **https://eswarva
 
 The site has two themes over the same content:
 
-- **Editor** (default): an explorer with my projects as Markdown files, `experience.ts`, `skills.json`, a live `github.log`, tabs, and a terminal that takes commands (`help`, `ls`, `open <file>`, `theme`, `resume`, `email`).
-- **Aurora**: a dark product-site look: soft indigo and teal glows, a floating glass nav, project cards with a pointer spotlight that open into a glass detail panel, and live GitHub stats.
+- **Aurora** (default): a dark product-site look: soft indigo and teal glows, a floating glass nav, project cards with a pointer spotlight that open into a glass detail panel, and live GitHub stats.
+- **Editor**: an explorer with my projects as Markdown files, `experience.ts`, `skills.json`, a live `github.log`, tabs, and a terminal that takes commands (`help`, `ls`, `open <file>`, `theme`, `resume`, `email`).
 
-Switch from the status-bar menu, the `theme aurora` terminal command, the "View as editor" link in Aurora's footer, or a link like [`?theme=aurora`](https://eswarvarun.web.app/?theme=aurora). The choice is remembered per visitor.
+Switch from the status-bar menu, the `theme aurora` terminal command, the "View as editor" link in Aurora's footer, or a link like [`?theme=ide`](https://eswarvarun.web.app/?theme=ide) or [`?theme=aurora`](https://eswarvarun.web.app/?theme=aurora). The choice is remembered per visitor.
 
 ## How it works
 

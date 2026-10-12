@@ -234,8 +234,8 @@ body {
 }
 
 /* Glows live in their own clipped layer so they can't cause sideways
-   scrolling. They are plain radial gradients rather than blurred shapes:
-   same look, but cheap to draw while scrolling on phones. */
+   scrolling. They are static radial gradients rather than blurred or
+   animated shapes: same look, but the page does no work while idle. */
 .au-hero-bg {
   position: absolute;
   inset: 0 0 -160px;
@@ -264,23 +264,6 @@ body {
   background: radial-gradient(closest-side, rgba(14, 143, 138, 0.34), rgba(14, 143, 138, 0.16) 45%, transparent);
 }
 
-/* Slow drift only on desktops, where there's GPU headroom to spare. */
-@media (hover: hover) and (pointer: fine) {
-  .au-glow-a {
-    animation: au-drift 18s ease-in-out infinite alternate;
-    will-change: transform;
-  }
-  .au-glow-b {
-    animation: au-drift 22s ease-in-out infinite alternate-reverse;
-    will-change: transform;
-  }
-}
-
-@keyframes au-drift {
-  to {
-    transform: translate(40px, 30px) scale(1.06);
-  }
-}
 
 .au-hero-inner {
   position: relative;

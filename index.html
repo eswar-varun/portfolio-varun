@@ -28,7 +28,8 @@
         try {
           t = t || localStorage.getItem('theme');
         } catch (e) {}
-        var theme = t === 'aurora' || t === 'midnight' || t === 'cinema' || t === 'poster' ? 'aurora' : 'ide';
+        // Aurora is the default; old theme names (midnight, cinema, poster) map to it.
+        var theme = t === 'ide' ? 'ide' : 'aurora';
         document.documentElement.dataset.theme = theme;
 
         function link(rel, href, as) {
@@ -61,10 +62,10 @@
     </script>
     <style>
       html {
-        background: #0b0c0f;
-      }
-      html[data-theme='aurora'] {
         background: #07080b;
+      }
+      html[data-theme='ide'] {
+        background: #0b0c0f;
       }
     </style>
 

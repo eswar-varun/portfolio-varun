@@ -8,7 +8,7 @@ export const THEMES = [
 
 export type ThemeId = (typeof THEMES)[number]['id'];
 
-export const DEFAULT_THEME: ThemeId = 'ide';
+export const DEFAULT_THEME: ThemeId = 'aurora';
 const KEY = 'theme';
 
 // Retired theme ids that should still land somewhere sensible.
