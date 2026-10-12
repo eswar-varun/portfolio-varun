@@ -239,7 +239,7 @@ export const Terminal = forwardRef<TerminalHandle, Props>(function Terminal({ on
             cmd,
             <span>
               themes: {THEMES.map((t) => (t.id === 'ide' ? `${t.id} (current)` : t.id)).join(', ')}.{' '}
-              <span className="t-dim">Try theme poster.</span>
+              <span className="t-dim">Try theme cinema.</span>
             </span>,
           );
         }

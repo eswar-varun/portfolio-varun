@@ -3,7 +3,7 @@
 
 export const THEMES = [
   { id: 'ide', label: 'Editor' },
-  { id: 'poster', label: 'Poster' },
+  { id: 'cinema', label: 'Cinema' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];
@@ -11,19 +11,26 @@ export type ThemeId = (typeof THEMES)[number]['id'];
 export const DEFAULT_THEME: ThemeId = 'ide';
 const KEY = 'theme';
 
+// Retired theme ids that should still land somewhere sensible.
+const RENAMED: Record<string, ThemeId> = { poster: 'cinema' };
+
 function isTheme(v: unknown): v is ThemeId {
   return THEMES.some((t) => t.id === v);
 }
 
+function normalize(v: string | null): string | null {
+  return v && RENAMED[v] ? RENAMED[v] : v;
+}
+
 /** URL (?theme=) wins, then the visitor's last choice, then the default. */
 export function currentTheme(): ThemeId {
-  const fromUrl = new URLSearchParams(window.location.search).get(KEY);
+  const fromUrl = normalize(new URLSearchParams(window.location.search).get(KEY));
   if (isTheme(fromUrl)) {
     remember(fromUrl);
     return fromUrl;
   }
   try {
-    const saved = localStorage.getItem(KEY);
+    const saved = normalize(localStorage.getItem(KEY));
     if (isTheme(saved)) return saved;
   } catch {
     // storage blocked: fall through to the default

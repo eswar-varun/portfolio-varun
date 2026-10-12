@@ -28,20 +28,15 @@
         try {
           t = t || localStorage.getItem('theme');
         } catch (e) {}
-        document.documentElement.dataset.theme = t === 'poster' ? 'poster' : 'ide';
+        document.documentElement.dataset.theme = t === 'cinema' || t === 'poster' ? 'cinema' : 'ide';
       })();
     </script>
     <style>
       html {
         background: #0b0c0f;
       }
-      html[data-theme='poster'] {
-        background: #ffffff;
-      }
-      @media (prefers-color-scheme: dark) {
-        html[data-theme='poster'] {
-          background: #0a0a0a;
-        }
+      html[data-theme='cinema'] {
+        background: #07080a;
       }
     </style>
 
